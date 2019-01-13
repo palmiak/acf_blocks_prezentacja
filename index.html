@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Tworzenie bloków Gutenberga za pomocą ACF Blocks - Maciek Palmowski</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+		<link rel="stylesheet" href="css/wordcamp.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="logo-sa">
+			<img src="img/sa-logo.png" />
+		</div>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<div class="inner">
+						<div class="inner-left">
+							<h1 class="title header-color"><span>01</span>Tworzenie bloków Gutenberga za pomocą ACF Blocks</h1>
+							<div class="text">
+								<p>
+                                    Jak tworzyć własne bloki za pomocą Advanced Custom Fields. Na co zwracać uwagę, na jakie problemy można natrafić i jak ułatwić sobie życie wplątując w to odrobinę Timbera.
+                                </p>
+							</div>
+						</div>
+						<div class="inner-right">
+							<div class="photobg-inner">
+								<div class="label">
+									Maciek Palmowski
+								</div>
+								<div class="photobg" style="background-image: url('img/laptop.jpg')">
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="inner">
+						<div class="inner-full">
+							<h1 class="title header-color"><span>02</span>Czym jest Gutenberg?</h1>
+							<div class="text">
+								<p>
+									<center><img src="https://yoast.com/app/uploads/2018/08/WordPress-5.0-gutenberg-rc2-interface.jpg" alt="" /></center>
+                                </p>
+							</div>
+						</div>
+					</div>
+                </section>
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>03</span>Czym jest Gutenberg?</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>nowy, blokowy edytor w WordPress 5.0</li>
+                                    <li>zmienia zupełnie sposób tworzenia elementów w panelu administratora (ReactJS)</li>
+                                    <li>zwiększa elastyczność przy tworzeniu treści</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>04</span>Czy łatwo jest stworzyć blok w Gutenbergu?</h1>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>05</span>Czy łatwo jest stworzyć blok w Gutenbergu?</h1>
+                            <div class="text">
+                                <p>Użyjmy <strong>create-guten-block</strong> który wg. autora ma takie zalety jak:</p>
+                                <ul>
+                                    <li>zero konfiguracji</li>
+                                    <li>pozwala tworzyć bloki w minuty</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>06</span>Czy łatwo jest stworzyć blok w Gutenbergu?</h1>
+                            <div class="text">
+                                <p>Instalacja</p>
+                                <pre>
+                                    <code code="bash">
+npx create-guten-block my-block
+cd my-block
+npm start
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>07</span>Czy łatwo jest stworzyć blok w Gutenbergu?</h1>
+                            <div class="text">
+                                <pre>
+                                    <code code="bash">
+├── .gitignore
+├── plugin.php
+├── package.json
+├── README.md
+├── dist
+|  ├── blocks.build.js
+|  ├── blocks.editor.build.css
+|  └── blocks.style.build.css
+└── src
+    ├── block
+    |  ├── block.js
+    |  ├── editor.scss
+    |  └── style.scss
+    ├── blocks.js
+    ├── common.scss
+    └── init.php
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>08</span>Czy łatwo jest stworzyć blok w Gutenbergu?</h1>
+                            <div class="text">
+                                <p>Pozstają nam tylko dwa kroki:</p>
+                                <ul>
+                                    <li>nauczyć się Reacta</li>
+                                    <li>wykorzystać pozyskaną wiedzę i stworzyć blok</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>09</span>Czy warto?</h1>
+                            <div class="text">
+                                <h2>TAK:</h2>
+                                <ul>
+                                    <li>tylko tak wykorzystamy pełen potencjał Gutenberga</li>
+                                    <li>nie będziemy uzależnieni od różnych bibliotek z blokami</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>10</span>Ale czy to konieczne?</h1>
+                            <div class="text">
+                                <h2>NIE:</h2>
+                                <ul>
+                                    <li>większość bloków które tworzymy ogranicza się do tego, że user wpisuje dane, a my je wyświetlamy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>11</span>Jakie mamy wyjścia?</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>ACF Blocks</li>
+                                    <li>Carbon Fields</li>
+                                    <li>Lazy Blocks</li>
+                                    <li>Blocks Lab</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>12</span>ACF Blocks - możliwości</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>możemy tworzyć formularze (jak to w ACF)</li>
+                                    <li>możemy podejrzeć jak wygląda dany blok</li>
+                                    <li>zaspokoić potrzeby większości klientów</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>13</span>Wady</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>ACF Blocks jest ciągle w wersji beta, mogą więc być błędy</li>
+                                    <li>Gutenberg ciągle się zmienia co nie ułatwia doprowadzenia wszystkiego do ładu</li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <div class="text">
+                                <center><img src="https://screenshotscdn.firefoxusercontent.com/images/91ca4e92-3918-42c5-9b40-0227b7a38d9b.png"/></center>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>14</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                                <pre>
+                                    <code code="php">add_action('acf/init', 'my_acf_init');
+function my_acf_init() {
+    if( function_exists('acf_register_block') ) {
+        acf_register_block([
+            'name'  => 'trips', // nazwa
+            'title' => __('Trips'), // wyświetlany tytuł
+            'description' => __('Promoted trips'), // opis
+            'render_callback' => 'my_acf_block_render_callback', // nazwa funkcji renderującej
+            'category' => 'layout', // kategoria
+            'icon' => 'location-alt', // ikona
+            'keywords' => [ 'trips', 'flights' ], // słowa kluczowe
+        ]);
+    }
+}</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>15</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                               <p>Więcej opcji na <a href="https://www.advancedcustomfields.com/resources/acf_register_block/">https://www.advancedcustomfields.com/resources/acf_register_block/</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>16</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                                <pre>
+                                    <code code="php">function my_acf_block_render_callback( $block, $content='', $is_preview ) {
+    $context = Timber::get_context();
+    // Wszystkie informacje o bloku
+    $context['block'] = $block;
+    // Wszystkie pola użyte w bloku
+    $context['fields'] = get_fields(); 
+    // Sprawdzamy czy to podgląd w panelu admina.
+    $context['is_preview'] = $is_preview;
+    // Renderujemy blok.
+    Timber::render( 'views/blocks/trip-block.twig', $context );
+}</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>17</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                                podgląd ustawień acf
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>18</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                                a tak wygląda blok w panelu admina
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>19</span>Stwórzmy więc blok</h1>
+                            <div class="text">
+                                tak wygląda blok na froncie
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>20</span>Działa :)</h1>
+                            <div class="text">
+                                <p>Są jednak dwa problemy:</p>
+                                <ul>
+                                    <li>Blok w panelu admina wygląda inaczej niż na froncie</li>
+                                    <li>W panelu nie działa nam Packery</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>21</span>Własne style i skrypty</h1>
+                            <div class="text">
+                            <pre>
+                                <code code="php">function my_acf_block_editor_style() {
+    wp_enqueue_style(
+        'trips_css',
+        get_template_directory_uri() .'/dist/css/editor.css'
+    );
+    wp_enqueue_script(
+        'trips_js',
+        get_template_directory_uri() .'/dist/js/editor.js'
+    );
+}
+add_action( 'enqueue_block_assets', 'my_acf_block_editor_style' );</code>
+                            </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>22</span>Na co warto uważać</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>w przeciwieństwie do TinyMCE - tutaj nie ma iframe</li>
+                                    <li>trzeba ostrzożnie podchodzić do stylowania html, body, a etc</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>23</span>Na co warto uważać</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>warto stworzyć sobie osobny styl tylko dla edytora, ale używający komponentów z frontu</li>
+                                </ul>
+                                <pre>
+                                        <code code="scss">.gutenberg-sasquatch-block {
+    @import "components/colors";
+    @import "components/mixins";
+    @import "components/standards";
+    @import "components/typo";
+    @import "components/buttons";
+
+    @import "layouts/index";
+}</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>24</span>Na co warto uważać</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>warto blok owinąć w dodatkowy div z indywidualną klasą</li>
+                                </ul>
+                                <pre>
+                                        <code code="html"><div class="gutenberg-sasquatch-block">
+...
+</div></code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>25</span>Packery</h1>
+                            <div class="text">
+                                <p>Nie działa, bo:</p>
+                                <ul>
+                                    <li>nie ma eventu, który odpalany jest po wyświetleniu podglądu</li>
+                                </ul>
+
+                                <p>Musimy więc dopisać własny event i wykorzystać zmienną is_preview.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>26</span>Packery</h1>
+                            <div class="text">
+                                <pre>
+                                        <code code="twig">{% if is_preview %}
+<script>
+jQuery(document).ready( function() {
+    var event = new CustomEvent('tripGridReady');
+    document.dispatchEvent(event);
+});
+</script>
+{% endif %}</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>27</span>Packery</h1>
+                            <div class="text">
+                                <pre>
+                                    <code code="javascript">document.addEventListener('tripGridReady', function (e) {
+    $.bridget( 'packery', Packery, $ );
+    if ( $( '.offers-list').length ) {
+        imagesLoaded( $( '.offers-list' ), function() {
+            $( '.offers-list' ).each( function( i ) {
+                $( '.offers-list' ).packery(
+                    {
+                        itemSelector: '.item',
+                    }
+                );
+            });
+        });
+    }
+}, false);</code>
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>28</span>Teraz działa</h1>
+                            <div class="text">
+                                SCREEN z bloku w panelu admina w trybie grid
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>29</span>Ostateczny efekt</h1>
+                            <div class="text">
+                                Filmik z edytora i filmik z frontu
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>30</span>Wnioski</h1>
+                            <div class="text">
+                                <ul>
+                                    <li>Brak stabilności Gutenberga w połączeniu z wersją beta ACF Blocks powodują, że używanie ich na produkcji może napsuć nam trochę krwi</li>
+                                    <li>ACF Blocks ma ograniczenia jeśli chodzi o dodatkowe elementy interface'u (np. sidebar czy dodatkowe menu kontekstowe) - trzeba więc bardzo poważnie pomyśleć jak stworzyć wygodny interface</li>
+                                    <li>ACF Blocks nie współpracuje na obecną chwilę z "kolumnami" czy "reusable blocks"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+				<section>
+					<div class="inner">
+						<div class="inner-right">
+							<div class="photobg-inner">
+								<div class="photobg" style="background-image: url('img/maciek.jpg')">
+								</div>
+							</div>
+						</div>
+						<div class="inner-left">
+							<h1 class="title header-color"><span>31</span>Dziękuję</h1>
+							<div class="text">
+								<h2>Maciek Palmowski</h2>
+								<p>
+									<small>email</small>
+									m.palmowski@freshpixels.pl
+								</p>
+								<p>
+									<small>wordpress.org</small>
+									profiles.wordpress.org/palmiak
+								</p>
+								<p>
+									<small>github</small>
+									github.com/palmiak
+								</p>
+								<p>
+									<small>WordPress Developer</small>
+									OsomStudio
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

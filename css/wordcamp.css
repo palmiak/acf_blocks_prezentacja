@@ -17,7 +17,7 @@
 }
 
 .logo-sa {
-	opacity: 0.16;
+	opacity: 0.9;
 	position: absolute;
 	bottom: 20px;
 	left: 20px;
@@ -26,7 +26,7 @@
 }
 
 .logo-sa img {
-	height: 30px;
+	height: 50px;
 	vertical-align: middle;
 }
 
@@ -149,12 +149,21 @@
 	padding: 0 50px!important;
 }
 
+.text.nopadding {
+	padding: 0!important;
+	text-align: center!important;
+}
+
 .text p,
 .text blockquote,
 .text li,
 .text input {
 	font-size: var(--font28)!important;
 	font-weight: var(--weight300)!important;
+}
+
+.text ifame {
+	display: inline-block!important;
 }
 
 .text p:last-child {

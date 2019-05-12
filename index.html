@@ -295,7 +295,7 @@ npm start
                             <h1 class="title header-color"><span>13</span>Wady</h1>
                             <div class="text">
                                 <ul>
-                                    <li>ACF Blocks jest ciągle w wersji beta, mogą więc być błędy</li>
+                                    <li>ACF Blocks ma ograniczenia w kwestii korzystania z natywnych elementów interface'u Gutenberga</li>
                                     <li>Gutenberg ciągle się zmienia co nie ułatwia doprowadzenia wszystkiego do ładu</li>
                                 </ul>
 
@@ -313,6 +313,15 @@ npm start
                         </div>
                     </div>
                 </section>
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <div class="text">
+                                <center><img src="img/Screenshot_2019-05-12 WordPress gutenberg.png"/></center>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section>
                     <div class="inner">
@@ -322,8 +331,8 @@ npm start
                                 <pre>
                                     <code code="php">add_action('acf/init', 'my_acf_init');
 function my_acf_init() {
-    if( function_exists('acf_register_block') ) {
-        acf_register_block([
+    if( function_exists('acf_register_block_type') ) {
+        acf_register_block_type([
             'name'  => 'trips', // nazwa
             'title' => __('Trips'), // wyświetlany tytuł
             'description' => __('Promoted trips'), // opis
@@ -466,6 +475,28 @@ add_action( 'enqueue_block_editor_assets', 'my_acf_block_editor_style' );</code>
                         </div>
                     </div>
                 </section>
+                <section>
+                    <div class="inner">
+                        <div class="inner-full">
+                            <h1 class="title header-color"><span>23</span>Własne style i skrypty</h1>
+                            <div class="text">
+                            <pre>
+                                <code code="php">acf_register_block_type([
+    'name'  => 'trips', // nazwa
+    'title' => __('Trips'), // wyświetlany tytuł
+    'description' => __('Promoted trips'), // opis
+    'render_callback' => 'my_acf_block_render_callback', // nazwa funkcji renderującej
+    'category' => 'layout', // kategoria
+    'icon' => 'location-alt', // ikona
+    'keywords' => [ 'trips', 'flights' ], // słowa kluczowe
+    'enqueue_style' => get_template_directory_uri() .'/dist/css/editor.css',
+    'enqueue_script' => get_template_directory_uri() .'/dist/js/editor.js',
+]);</code>
+                            </pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section>
                     <div class="inner">
@@ -475,6 +506,7 @@ add_action( 'enqueue_block_editor_assets', 'my_acf_block_editor_style' );</code>
                                 <ul>
                                     <li>w przeciwieństwie do TinyMCE - tutaj nie ma iframe</li>
                                     <li>trzeba ostrzożnie podchodzić do stylowania html, body, a etc</li>
+                                    <li>warto wyelminować w panelu admina możliwość klikania w URLe</li>
                                 </ul>
                             </div>
                         </div>
@@ -530,30 +562,8 @@ add_action( 'enqueue_block_editor_assets', 'my_acf_block_editor_style' );</code>
                             <div class="text">
                                 <p>Nie działa, bo:</p>
                                 <ul>
-                                    <li>nie ma (jeszcze) eventu, który odpalany jest po wyświetleniu podglądu</li>
+                                    <li>nie jest powiązany z eventem, który byłby odpalany po wyświetleniu podglądu</li>
                                 </ul>
-
-                                <p>Musimy więc dopisać własny event i wykorzystać zmienną is_preview.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <section>
-                    <div class="inner">
-                        <div class="inner-full">
-                            <h1 class="title header-color"><span>28</span>Packery</h1>
-                            <div class="text">
-                                <pre>
-                                        <code code="twig">{% if is_preview %}
-<script>
-jQuery(document).ready( function() {
-    var event = new CustomEvent('tripGridReady');
-    document.dispatchEvent(event);
-});
-</script>
-{% endif %}</code>
-                                </pre>
                             </div>
                         </div>
                     </div>
@@ -565,7 +575,7 @@ jQuery(document).ready( function() {
                             <h1 class="title header-color"><span>29</span>Packery</h1>
                             <div class="text">
                                 <pre>
-                                    <code code="javascript">document.addEventListener('tripGridReady', function (e) {
+                                    <code code="javascript">window.acf.addAction('render_block_preview', function( $el, attributes ){
     $.bridget( 'packery', Packery, $ );
     if ( $( '.offers-list').length ) {
         imagesLoaded( $( '.offers-list' ), function() {
@@ -578,7 +588,7 @@ jQuery(document).ready( function() {
             });
         });
     }
-}, false);</code>
+});</code>
                                 </pre>
                             </div>
                         </div>
@@ -622,9 +632,8 @@ jQuery(document).ready( function() {
                             <h1 class="title header-color"><span>32</span>Wnioski</h1>
                             <div class="text">
                                 <ul>
-                                    <li>Brak stabilności Gutenberga w połączeniu z wersją beta ACF Blocks powodują, że używanie ich na produkcji może napsuć nam trochę krwi</li>
+                                    <li>Bardzo intensywny rozwój Gutenberga w połączeniu z chorobami wieku dziecięcego ACF Blocks mogą napsuć nam trochę krwi</li>
                                     <li>ACF Blocks ma ograniczenia jeśli chodzi o dodatkowe elementy interface'u (np. sidebar czy dodatkowe menu kontekstowe) - trzeba więc bardzo poważnie pomyśleć jak stworzyć wygodny interface</li>
-                                    <li>ACF Blocks nie współpracuje na obecną chwilę z "reusable blocks"</li>
                                 </ul>
                             </div>
                         </div>
